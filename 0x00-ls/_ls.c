@@ -20,7 +20,7 @@ void display_diractory(list_t *file_names, int *op)
 
 	while (head != NULL)
 	{
-		show_op(head, op, mult);
+		display_option(head, op, mult);
 		head = head->next;
 	}
 }
