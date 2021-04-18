@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include <errno.h>
-#include <string.h>
+#include <unistd.h>
 #include <sys/stat.h>
 #include <pwd.h>
 #include <grp.h>

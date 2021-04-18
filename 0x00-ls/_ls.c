@@ -113,7 +113,7 @@ void condition_overload(struct dirent *read, int *op)
 	if (op[2] == 1)
 		print_one_by_line(read->d_name, op);
 	else
-		if (op[3] == 1 && strcmp(read->d_name, ".") && strcmp(read->d_name, ".."))
+		if (op[3] == 1 && _strcmp(read->d_name, ".") && _strcmp(read->d_name, ".."))
 			print_one_by_line(read->d_name, op);
 		else
 			if (read->d_name[0] != '.')
