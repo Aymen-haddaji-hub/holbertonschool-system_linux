@@ -88,3 +88,29 @@ char *_strncpy(char *dest, char const *src, int n)
 
 	return (dest);
 }
+/**
+ * _strdup - Creates a duplicate of the string pointed to by str
+ * @str: pointer to the null-terminated string to duplicate
+ * Description: Creates a duplicate of the string pointed to by str
+ * Return: A pointer to the newly allocated string,
+ * or a null pointer if an error occurred.
+ */
+char *_strdup(const char *str)
+{
+	int len;
+	int i;
+	char *s;
+
+	i = 0;
+	if (str == NULL)
+		return (NULL);
+	len = _strlen(str);
+	s = malloc(sizeof(*s) * (len + 1));
+	while (i < len)
+	{
+		s[i] = str[i];
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
+}

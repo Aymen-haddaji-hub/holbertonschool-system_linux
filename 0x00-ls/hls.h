@@ -1,6 +1,5 @@
 #ifndef HLS_H
 #define HLS_H
-#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <dirent.h>
@@ -49,6 +48,6 @@ int _strcmp(char const *s1, char *s2);
 char *_strncpy(char *dest, char const *src, int n);
 int _strlen(char const *s);
 char *_strcpy(char *dest, char const *src);
-
+char *_strdup(const char *str);
 
 #endif
