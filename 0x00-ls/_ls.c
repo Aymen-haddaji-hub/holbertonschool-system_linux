@@ -1,6 +1,6 @@
 #include "hls.h"
 /**
-*show_dir - 0
+*display_diractory - 0
 *@file_names: node of arguments
 *@op: array of options
 */
@@ -25,7 +25,7 @@ void display_diractory(list_t *file_names, int *op)
 	}
 }
 /**
-*show_op - 0
+*display_option - 0
 *@head: node of arguments
 *@op: array of options
 *@mult: multiple file_names

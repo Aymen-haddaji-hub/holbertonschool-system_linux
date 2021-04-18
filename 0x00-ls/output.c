@@ -1,7 +1,7 @@
 #include "hls.h"
 
 /**
-*long_format - 0
+*print_long_format - 0
 *@read: node of arguments
 */
 void print_long_format(struct dirent *read)
@@ -32,7 +32,7 @@ void print_long_format(struct dirent *read)
 	(*grp).gr_name, (intmax_t)fileStat.st_size, time, (*read).d_name);
 }
 /**
-*print_1 - 0
+*print_one_by_line - 0
 *@read: node of arguments
 *@op: array of options
 */

@@ -1,4 +1,11 @@
 #include "hls.h"
+/**
+ * add_node - Add node at the beginning of a linkedlist.
+ * @head: A pointer to the head of the linkedlist.
+ * @str: The string to be added to the linkedlist.
+ * Return:  NULL if fail .
+ *         Otherwise - the address of the new element.
+ */
 list_t *add_node(list_t **head, const char *str)
 {
 	char *c;

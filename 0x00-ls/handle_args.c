@@ -4,6 +4,7 @@
  * @argc: argument count
  * @argv: arguments
  * @op: table of options
+ * Return: list object
  */
 list_t *handle_args(int argc, char const *argv[], int *op)
 {
