@@ -39,7 +39,7 @@ void display_option(list_t *head, int *op, int mult)
 
 
 	if (mult == 1 && errno == 0)
-		printf("%s :\n", head->str);
+		printf("%s:\n", head->str);
 	if (dir != NULL)
 	{
 		read = readdir(dir);
