@@ -8,7 +8,7 @@ void error_handler(char *directory)
 {
 
 	if (errno == ENOENT)
-		fprintf(stderr, "hls: cannot access %s ", directory);
+		fprintf(stderr, "hls: cannot access %s: ", directory);
 	else if (errno == EACCES)
 		fprintf(stderr, "hls: cannot open directory %s", directory);
 	perror("");
