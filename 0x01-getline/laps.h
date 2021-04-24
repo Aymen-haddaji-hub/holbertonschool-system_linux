@@ -4,6 +4,6 @@
 
 
 void race_state(int *id, size_t size);
-void sort(int *cars, int *laps, int count);
+void car_sort(int *cars, int *laps, int counter);
 
 #endif /*__LAPS__H__*/

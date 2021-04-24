@@ -9,7 +9,7 @@ void race_state(int *id, size_t size)
 {
 	static int cars[64];
 	static int laps[64];
-	static size_t count;
+	static size_t counter;
 	int exists;
 	size_t i, j;
 
@@ -18,7 +18,7 @@ void race_state(int *id, size_t size)
 	for (i = 0; i < size; i++)
 	{
 		exists = 0;
-		for (j = 0; j < count; j++)
+		for (j = 0; j < counter; j++)
 		{
 			if (id[i] == cars[j])
 			{
@@ -29,14 +29,40 @@ void race_state(int *id, size_t size)
 		}
 		if (exists == 0)
 		{
-			cars[count] = id[i];
-			count++;
+			cars[counter] = id[i];
+            car_sort(cars, laps, counter);
+			counter++;
 			printf("Car %d joined the race\n", id[i]);
 		}
 	}
 	printf("Race state:\n");
-	for (j = 0; j < count; j++)
+	for (j = 0; j < counter; j++)
 	{
 		printf("Car %d [%d laps]\n", cars[j], laps[j]);
+	}
+}
+/**
+ * car_sort - sort cars.
+ * @cars: array of cars
+ * @laps: array of laps
+ * @counter: number of cars in the race
+ * Return: always 0.
+ */
+void car_sort(int *cars, int *laps, int counter)
+{
+	int tmp;
+	int x;
+
+	for (x = counter; x > 0; x--)
+	{
+		if (cars[x] < cars[x - 1])
+		{
+			tmp = cars[x - 1];
+			cars[x - 1] = cars[x];
+			cars[x] = tmp;
+			tmp = laps[x - 1];
+			laps[x - 1] = laps[x];
+			laps[x] = tmp;
+		}
 	}
 }
