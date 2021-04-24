@@ -30,7 +30,7 @@ void race_state(int *id, size_t size)
 		if (exists == 0)
 		{
 			cars[counter] = id[i];
-            car_sort(cars, laps, counter);
+			car_sort(cars, laps, counter);
 			counter++;
 			printf("Car %d joined the race\n", id[i]);
 		}
