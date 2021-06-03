@@ -1,7 +1,7 @@
 #!/usr/bin/python3
-from sys import argv
 """ Python Script that Manipulate ASCII
 STRING in the heap of a running PROCESS"""
+from sys import argv
 
 
 def parser():
