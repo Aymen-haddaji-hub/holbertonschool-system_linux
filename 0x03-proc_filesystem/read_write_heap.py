@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 from sys import argv
-""" Python Script that Manipulate ASCII STRING in the heap of a running PROCESS"""
+""" Python Script that Manipulate ASCII
+STRING in the heap of a running PROCESS"""
+
 
 def parser():
     """
@@ -59,11 +61,12 @@ def main():
         pid, string, new = parser()
         read_write_file(pid, string, new)
         exit_value = 0
-        
+
     except Exception as e:
         print(e)
     finally:
         exit(exit_value)
+
 
 if __name__ == '__main__':
     main()
