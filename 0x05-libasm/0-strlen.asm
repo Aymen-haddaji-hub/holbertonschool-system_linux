@@ -1,4 +1,4 @@
-BITS 64
+bits 64
 
 global asm_strlen
 
