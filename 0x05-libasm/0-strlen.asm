@@ -16,6 +16,7 @@ loop_asm_strlen:
 	je end								;if null end loop
 	inc rcx								;increment
 	jmp loop_asm_strlen					;and then reloop
+
 end:
 
 	mov rax, rcx						;put the rcx to return register
