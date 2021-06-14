@@ -12,8 +12,8 @@ loop_asm_strlen:
 
 
 	cmp byte[rdi + rcx], 0h ;
-	je end	;if null end loop
-	inc rcx	;increment
+	je end		;if null end loop
+	inc rcx		;increment
 	jmp loop_asm_strlen	;and then reloop
 end:
 	mov rax, rcx	;put the rcx to return register.
