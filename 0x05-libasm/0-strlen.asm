@@ -9,6 +9,7 @@ asm_strlen:
 	mov rbp, rsp
 
 	mov rcx, 0h							;set rcx to NULL
+
 loop_asm_strlen:
 
 	cmp byte[rdi + rcx], 0h
