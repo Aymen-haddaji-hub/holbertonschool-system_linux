@@ -11,7 +11,7 @@ asm_strlen:
 loop_asm_strlen:
 
 
-	cmp byte[rdi + rcx], 0h ;
+	cmp byte[rdi + rcx], 0h
 	je end								;if null end loop
 	inc rcx								;increment
 	jmp loop_asm_strlen					;and then reloop
