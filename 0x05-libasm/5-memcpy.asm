@@ -1,3 +1,4 @@
+
 BITS 64
 
 global asm_memcpy
@@ -21,4 +22,5 @@ loop:
 return_value:
 	mov		rsp,	rbp		; Get back the status stack
 	pop		rbp				; Delete the element to the stack
+
 	ret 					; return (ptr)
