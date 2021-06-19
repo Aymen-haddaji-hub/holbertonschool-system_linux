@@ -45,4 +45,3 @@ out:
 	mov	rsp,	rbp	; Get back the status stack
 	pop	rbp		; Delete the element to the stack
 	ret			; return
-	
