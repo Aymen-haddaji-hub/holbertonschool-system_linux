@@ -1,5 +1,4 @@
 BITS 64
-
 global asm_strspn
 
 section .text
