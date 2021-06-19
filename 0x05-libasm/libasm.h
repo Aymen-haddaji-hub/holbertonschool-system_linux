@@ -18,5 +18,4 @@ size_t asm_strcspn(const char *s, const char *reject);
 char *asm_strpbrk(const char *s, const char *accept);
 size_t asm_puti(int n);
 size_t asm_puti_base(int n, const char *base);
-
 #endif /* LIBASM_H */
