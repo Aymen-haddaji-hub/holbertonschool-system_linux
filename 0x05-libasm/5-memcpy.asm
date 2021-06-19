@@ -8,7 +8,7 @@ asm_memcpy:
 	push 	rbp
 	mov		rbp,	rsp
 	xor		rcx,	rcx		; Create a counter and init to zero
-	
+
 loop:
 	cmp		byte[rsi + rcx], 0 		; Compare arg2[i] == 0
 	je		return_value	   		; If true so go return_value
