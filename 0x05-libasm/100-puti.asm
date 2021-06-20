@@ -22,14 +22,14 @@ asm_puti:
 	call asm_putc
 cero:
 	test r15, r15
-	jnz while
+	jnz loop
 	mov rdi, 48
 	call asm_putc
 	mov r13, 1
-while:
+loop:
 	xor rdx, rdx
 	test r15, r15
-	jz done
+	jz out
 	mov rax, r15
 	mov rbx, 10
 	div rbx
@@ -38,20 +38,20 @@ while:
 	push rdx
 	after_push:
 	inc r14
-	jmp while
-done:
+	jmp loop
+out:
 	mov r15, r14
-print:
+stdout:
 	test r15, r15
-	jz done_print
+	jz end_1
 	pop rdi
 	after_pop:
 	add rdi, 48
 	call asm_putc
 	dec r15
-	jmp print
+	jmp stdout
 
-done_print:
+end_1:
 	cmp r13, 1
 	jne end
 	inc r14
