@@ -1,25 +1,17 @@
 BITS 64
+	global asm_putc
 
-global asm_putc
+	section .text
 
-section .text
 asm_putc:
-	push 	rbp
-	mov 	rbp, 	rsp
-	push 	rdi
-	push 	rsi
-	push 	rdx
-
-	mov 	rax, 	1
-	mov 	[rsi], 	rdi
-	mov 	rdi, 	1
-	mov 	rdx, 	1
+	push rbp
+	mov rbp, rsp
+	push rdi
+	mov rax, 1
+	mov rdi, 1
+	mov rsi, rsp
+	mov rdx, 1
 	syscall
-
-	pop rdx
-	pop rsi
-	pop rdi
-	mov rsp, 	rbp
+	mov rsp, rbp
 	pop rbp
-
 	ret
