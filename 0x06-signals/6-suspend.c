@@ -6,7 +6,7 @@
  */
 void sig_handler(int signal)
 {
-	printf("Caught! [%i]\n", signal);
+	printf("Caught %d\n", signal);
 	fflush(stdout);
 }
 
