@@ -20,10 +20,7 @@ int main(void)
 	struct sigaction sig_act;
 
 	sig_act.sa_handler = sig_handler;
-	sig_act.sa_flags = 0;
-
-	if (sigaction(SIGINT, &sig_act, NULL) < 0)
-		return (EXIT_FAILURE);
+	sigaction(SIGINT, &sig_act, NULL);
 	pause();
 	puts("Signal received");
 	return (EXIT_SUCCESS);
