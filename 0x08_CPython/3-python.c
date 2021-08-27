@@ -1,6 +1,30 @@
 #include <Python.h>
 #include <stdio.h>
 #include <string.h>
+
+/**
+ * print_python_float - prints some basic info about Python lists
+ * @p: Python object
+ */
+void print_python_float(PyObject *p)
+{
+	char *s;
+	double value;
+
+	setbuf(stdout, NULL);
+
+	printf("[.] float object info\n");
+	if (!p || !PyFloat_Check(p))
+	{
+		printf("  [ERROR] Invalid Float Object\n");
+		return;
+	}
+
+	value = (((PyFloatObject *)(p))->ob_fval);
+	s = PyOS_double_to_string(value, 'r', 0, Py_DTSF_ADD_DOT_0, NULL);
+	printf("  value: %s\n", s);
+}
+
 /**
  * print_python_bytes - prints some basic info about Python bytes.
  * @p: Python object
@@ -54,26 +78,4 @@ void print_python_list(PyObject *p)
 		if (PyBytes_Check(item))
 			print_python_bytes(item);
 	}
-}
-/**
- * print_python_float - prints some basic info about Python lists
- * @p: Python object
- */
-void print_python_float(PyObject *p)
-{
-	char *s;
-	double value;
-
-	setbuf(stdout, NULL);
-
-	printf("[.] float object info\n");
-	if (!p || !PyFloat_Check(p))
-	{
-		printf("  [ERROR] Invalid Float Object\n");
-		return;
-	}
-
-	value = (((PyFloatObject *)(p))->ob_fval);
-	s = PyOS_double_to_string(value, 'r', 0, Py_DTSF_ADD_DOT_0, NULL);
-	printf("  value: %s\n", s);
 }
