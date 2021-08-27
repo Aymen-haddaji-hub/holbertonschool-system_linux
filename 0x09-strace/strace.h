@@ -10,9 +10,5 @@
 #include <sys/user.h>
 #include <unistd.h>
 #include "syscalls.h"
-/* strace_0 */
-void _trace_child(char **argv, char **env);
-void _trace_parent(pid_t child_pid);
-int _await_syscall(pid_t child_pid);
 
 #endif
