@@ -11,11 +11,12 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	char *args[] = {"./hnm", "-p", "", NULL};
+	char *comm[] = {"./hnm", "-p", "", NULL};
 
 	(void)argc;
-	args[2] = argv[1];
-	if (execve("/usr/bin/nm", args, env) == -1)
+
+	comm[2] = argv[1];
+	if (execve("/usr/bin/nm", comm, env) == -1)
 	{
 		perror("execv");
 		return (EXIT_FAILURE);
