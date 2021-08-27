@@ -11,7 +11,7 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	char *args[] = {"/usr/bin/nm", "-p", "", NULL};
+	char *args[] = {"./hnm", "-p", "", NULL};
 
 	(void)argc;
 	args[2] = argv[1];
