@@ -22,6 +22,10 @@ SRC4 = 4-strace.c
 OBJ4 = $(SRC4:.c=.o)
 NAME4 = strace_4
 
+SRC5 = 5-strace.c
+OBJ5 = $(SRC5:.c=.o)
+NAME5 = strace_5
+
 .PHONY: all clean oclean flcean re
 
 all: $(OBJ0) $(OBJ1)
@@ -63,4 +67,7 @@ strace_3: strace.h $(OBJ3)
 
 strace_4: strace.h $(OBJ4)
 	$(CC) $(OBJ4) -o $(NAME4)
+
+strace_5: strace.h $(OBJ5)
+	$(CC) $(OBJ5) -o $(NAME5)
 
