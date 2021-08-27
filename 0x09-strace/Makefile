@@ -26,33 +26,6 @@ SRC5 = 5-strace.c
 OBJ5 = $(SRC5:.c=.o)
 NAME5 = strace_5
 
-.PHONY: all clean oclean flcean re
-
-all: $(OBJ0) $(OBJ1)
-	$(CC) $(OBJ0) -o $(NAME0)
-	$(CC) $(OBJ1) -o $(NAME1)
-	$(CC) $(OBJ2) -o $(NAME2)
-	$(CC) $(OBJ2) -o $(NAME3)
-	$(CC) $(OBJ2) -o $(NAME4)
-
-clean:
-	$(RM) *~ $(NAME0)
-	$(RM) *~ $(NAME1)
-	$(RM) *~ $(NAME2)
-	$(RM) *~ $(NAME3)
-	$(RM) *~ $(NAME4)
-
-oclean:
-	$(RM) $(OBJ0)
-	$(RM) $(OBJ1)
-	$(RM) $(OBJ2)
-	$(RM) $(OBJ3)
-	$(RM) $(OBJ4)
-
-fclean: clean oclean
-
-re: oclean all
-
 strace_0: strace.h $(OBJ0)
 	$(CC) $(OBJ0) -o $(NAME0)
 
