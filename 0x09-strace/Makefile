@@ -26,6 +26,19 @@ SRC5 = 5-strace.c
 OBJ5 = $(SRC5:.c=.o)
 NAME5 = strace_5
 
+SRC6 = 6-strace.c
+OBJ5 = $(SRC6:.c=.o)
+NAME5 = strace_6
+
+SRC5 = 7-strace.c
+OBJ5 = $(SRC7:.c=.o)
+NAME5 = strace_7
+
+SRC5 = 8-strace.c
+OBJ5 = $(SRC8:.c=.o)
+NAME5 = strace_8
+
+
 strace_0: strace.h $(OBJ0)
 	$(CC) $(OBJ0) -o $(NAME0)
 
@@ -44,3 +57,11 @@ strace_4: strace.h $(OBJ4)
 strace_5: strace.h $(OBJ5)
 	$(CC) $(OBJ5) -o $(NAME5)
 
+strace_6: strace.h $(OBJ6)
+	$(CC) $(OBJ6) -o $(NAME6)
+
+strace_7: strace.h $(OBJ7)
+	$(CC) $(OBJ7) -o $(NAME7)
+
+strace_8: strace.h $(OBJ8)
+	$(CC) $(OBJ8) -o $(NAME8)
