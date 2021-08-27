@@ -55,27 +55,25 @@ void print_python_list(PyObject *p)
 			print_python_bytes(item);
 	}
 }
+/**
+ * print_python_float - prints some basic info about Python lists
+ * @p: Python object
+ */
 void print_python_float(PyObject *p)
 {
-	char float_str[40];
+	char *s;
+	double value;
+
+	setbuf(stdout, NULL);
 
 	printf("[.] float object info\n");
-	if (!PyFloat_Check(p))
+	if (!p || !PyFloat_Check(p))
 	{
 		printf("  [ERROR] Invalid Float Object\n");
-		fflush(stdout);
 		return;
 	}
 
-	/*
-	 * Could not find printf format tag that accommodated both variable
-	 * precision with no trailing zeroes AND .0 for integers
-	 */
-	sprintf(float_str, "%.16g", ((PyFloatObject *)p)->ob_fval);
-	if (strchr(float_str, '.') != NULL)
-		printf("  value: %s\n", float_str);
-	else
-		printf("  value: %.1f\n", ((PyFloatObject *)p)->ob_fval);
-
-	fflush(stdout);
+	value = (((PyFloatObject *)(p))->ob_fval);
+	s = PyOS_double_to_string(value, 'r', 0, Py_DTSF_ADD_DOT_0, NULL);
+	printf("  value: %s\n", s);
 }
