@@ -10,6 +10,7 @@
 #include <sys/user.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <errno.h>
 #include "syscalls.h"
 
 #endif
