@@ -1,2 +1,3 @@
-# holbertonschool-system_linux
-Create your own ls
+holberton school system linux programming
+this repo for system development
+
