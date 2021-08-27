@@ -1,95 +1,82 @@
 #include "strace.h"
 
-void _trace_child(char **argv, char **env);
-void _trace_parent(pid_t child_pid);
-int _await_syscall(pid_t child_pid);
-unsigned long syscall_param(struct user_regs_struct uregs, size_t i);
+/**
+ * syscall_param - print the parametres of a given syscall
+ * @registers: struct with the register syscall
+ * Return: nothing
+ */
+void syscall_param(struct user_regs_struct registers)
+{
+	unsigned long parameter[6] = {0};
+	size_t nb_params, i = 0;
+
+	parameter[0] = (unsigned long) registers.rdi;
+	parameter[1] = (unsigned long) registers.rsi;
+	parameter[2] = (unsigned long) registers.rdx;
+	parameter[3] = (unsigned long) registers.r10;
+	parameter[4] = (unsigned long) registers.r8;
+	parameter[5] = (unsigned long) registers.r9;
+
+	nb_params = syscalls_64_g[(unsigned long)registers.orig_rax].nb_params;
+
+	while (i < nb_params)
+	{
+		if (i > 0)
+			printf(", ");
+		if (syscalls_64_g[(unsigned long) registers.orig_rax].params[i] == VARARGS)
+			printf("...");
+		else if (syscalls_64_g[(unsigned long) registers.orig_rax].params[i] != VOID)
+			printf("%#lx", parameter[i]);
+		i++;
+	}
+}
+
 
 /**
- * main - entry point
- * @ac: argument count
- * @av: argument vector
- * @envp: environ
- * Return: EXIT_SUCCESS or error.
+ * main - use ptrace for getting the syscall name and return value
+ * @ac: number of arguments
+ * @av: list of arguments
+ * @en: list of environ variables
+ * Return: 0 on success, 1 otherwise
  */
-int main(int ac, char **av, char **envp)
+int main(int ac, char **av, char **en)
 {
-	pid_t child_pid;
+	pid_t child = 0;
+	int status = 0, flag = 0;
+	struct user_regs_struct registers;
 
 	if (ac < 2)
 	{
-		printf("Usage: %s command [args...]\n", av[0]);
-		return (EXIT_FAILURE);
+		printf("./strace_3 command [args...]\n");
+		return (1);
 	}
 	setbuf(stdout, NULL);
-	child_pid = fork();
-	if (child_pid == -1)
+	child = fork();
+	if (child == 0)
 	{
-		dprintf(STDERR_FILENO, "Fork failed: %d\n", errno);
-		exit(-1);
+		ptrace(PTRACE_TRACEME, child, NULL, NULL);
+		raise(SIGSTOP);
+		execve(av[1], &(av[1]), en);
 	}
-	else if (!child_pid)
-		_trace_child(av, envp);
 	else
-		_trace_parent(child_pid);
-	return (0);
-}
-
-/**
- * _trace_child - traces child process
- * @argv: argument vector for execve
- * @env: environ for execve
- */
-void _trace_child(char **argv, char **env)
-{
-	ptrace(PTRACE_TRACEME, 0, 0, 0);
-	kill(getpid(), SIGSTOP);
-	if (execve(argv[1], argv + 1, env) == -1)
 	{
-		dprintf(STDERR_FILENO, "Exec failed: %d\n", errno);
-		exit(-1);
-	}
-}
-
-/**
- * _trace_parent - calls made by tracing parent
- * @child_pid: pid of child to trace
- */
-void _trace_parent(pid_t child_pid)
-{
-	int status;
-	struct user_regs_struct registers;
-
-	waitpid(child_pid, &status, 0);
-	ptrace(PTRACE_SETOPTIONS, child_pid, 0, PTRACE_O_TRACESYSGOOD);
-	while (1)
-	{
-		if (_await_syscall(child_pid))
-			break;
-		memset(&registers, 0, sizeof(registers));
-		ptrace(PTRACE_GETREGS, child_pid, 0, &registers);
-		printf("%lu\n", (long)registers.orig_rax);
-		if (_await_syscall(child_pid))
-			break;
-	}
-}
-
-/**
- * _await_syscall - waits for a syscall
- * @child_pid: pid of process to await
- * Return: 0 if child stopped, 1 if exited
- */
-int _await_syscall(pid_t child_pid)
-{
-	int status;
-
-	while (1)
-	{
-		ptrace(PTRACE_SYSCALL, child_pid, 0, 0);
-		waitpid(child_pid, &status, 0);
-		if (WIFSTOPPED(status) && WSTOPSIG(status) & 0x80)
-			return (0);
+		wait(&status);
 		if (WIFEXITED(status))
-			return (1);
+			return (0);
+		ptrace(PTRACE_SYSCALL, child, NULL, NULL);
+		while (wait(&status) && !WIFEXITED(status))
+		{
+			memset(&registers, 0, sizeof(registers));
+			ptrace(PTRACE_GETREGS, child, NULL, &registers);
+			if (flag)
+				(printf(") = %#lx\n", (unsigned long) registers.rax), flag = 0);
+			if (WSTOPSIG(status) == SIGTRAP && (long) registers.rax == -38)
+				(printf("%s(",
+					(char *) syscalls_64_g[(unsigned long)registers.orig_rax].name),
+				 syscall_param(registers), flag = 1);
+			ptrace(PTRACE_SYSCALL, child, NULL, NULL);
+		}
+		printf(") = ?\n");
 	}
+	return (0);
 }
