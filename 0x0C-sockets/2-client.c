@@ -23,29 +23,21 @@ int main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	if (gethostname(host, sizeof(host)) == -1)
-	{
-		perror("gethostname");
 		return (EXIT_FAILURE);
-	}
+
 	memset(&hints, 0, sizeof(hints));
 	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
 	if (getaddrinfo(argv[1], argv[2], &hints, &res) != 0)
-	{
-		perror("getaddrinfo");
 		return (EXIT_FAILURE);
-	}
+
 	sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
 	if (sockfd == -1)
-	{
-		perror("socket");
 		return (EXIT_FAILURE);
-	}
+
 	if (connect(sockfd, res->ai_addr, res->ai_addrlen) == -1)
-	{
-		perror("connect");
 		return (EXIT_FAILURE);
-	}
+
 	printf("Connected to %s:%s\n", argv[1], argv[2]);
 	freeaddrinfo(res);
 	close(sockfd);
